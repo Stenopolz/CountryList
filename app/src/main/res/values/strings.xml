@@ -2,8 +2,9 @@
     <string name="app_name">CountryList</string>
     <string name="title_activity_main">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="welcome_fragment_label">Welcome</string>
+    <string name="country_list_fragment_label">Countries</string>
+    <string name="country_details_fragment_label">Country Details</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
