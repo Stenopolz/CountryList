@@ -11,7 +11,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.stenopolz.countrylist.R
 import com.stenopolz.countrylist.databinding.ActivityMainBinding
 import com.stenopolz.countrylist.extensions.apiCall
-import com.stenopolz.countrylist.model.service.CountryService
+import com.stenopolz.countrylist.model.service.CountryApi
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -19,6 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -37,32 +39,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
-    private val okHttp by lazy {
-        OkHttpClient.Builder()
-            .writeTimeout(10, TimeUnit.SECONDS)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
-            .build()
-    }
-    private val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://restcountries.com/v3.1/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .client(okHttp)
-            .build()
-    }
-
     override fun onResume() {
         super.onResume()
-
-        val countryService = retrofit.create(CountryService::class.java)
-
-        lifecycleScope.launch {
-            launch(Dispatchers.IO) {
-                val countries = apiCall { countryService.getAllCountries() }
-                Log.d("Stenopolz", countries.getDataOrNull()?.firstOrNull()?.name?.official?: "No Data")
-            }
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
