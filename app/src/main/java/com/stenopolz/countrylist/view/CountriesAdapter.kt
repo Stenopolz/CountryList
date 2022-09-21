@@ -21,7 +21,7 @@ class CountriesAdapter(
         val country = countryList[position]
         holder.bind(country)
         holder.itemView.setOnClickListener {
-            onClickListener(country.cca3Code)
+            onClickListener(country.id)
         }
     }
 

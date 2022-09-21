@@ -5,5 +5,5 @@ data class CountryShortInfo(
     val capital: String,
     val region: String,
     val flagUrl: String,
-    val cca3Code: String
+    val id: String
 )
