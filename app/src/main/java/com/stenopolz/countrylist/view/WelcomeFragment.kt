@@ -5,10 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.stenopolz.countrylist.R
 import com.stenopolz.countrylist.databinding.FragmentWelcomeBinding
+import com.stenopolz.countrylist.viewmodel.WelcomeScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WelcomeFragment : Fragment() {
@@ -18,6 +23,8 @@ class WelcomeFragment : Fragment() {
         get() = requireNotNull(_binding) {
             "Binding is only valid between onCreateView and onDestroyView"
         }
+
+    private val welcomeViewModel: WelcomeScreenViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +39,19 @@ class WelcomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_Welcome_Fragment_to_Country_List_Fragment)
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = welcomeViewModel
+        }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                welcomeViewModel.goToNextScreen.collect {
+                    findNavController().navigate(
+                        WelcomeFragmentDirections.actionWelcomeFragmentToCountryListFragment()
+                    )
+                }
+            }
         }
     }
 

@@ -5,9 +5,8 @@
     <string name="welcome_fragment_label">Welcome</string>
     <string name="country_list_fragment_label">Countries</string>
     <string name="country_details_fragment_label">Country Details</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="error_message">Something went wrong, please try again</string>
+    <string name="try_again">Try again</string>
+    <string name="continue_to_the_app">Continue</string>
+    <string name="welcome_text">Welcome to the Country List application. Here you can get information about all countries around the globe.\n\nClick continue to proceed</string>
 </resources>
