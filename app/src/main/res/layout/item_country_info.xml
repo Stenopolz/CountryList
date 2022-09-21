@@ -22,11 +22,13 @@
             <ImageView
                 android:id="@+id/flag_image"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                app:layout_constrainedHeight="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 app:setImage="@{countryInfo.flagUrl}" />
 
             <TextView
@@ -44,6 +46,22 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/capital_label"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/capital_label"
+                app:layout_constrainedHeight="true"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/capital"
+                app:layout_constraintStart_toEndOf="@id/flag_image"
+                app:layout_constraintTop_toBottomOf="@id/name" />
+
+            <TextView
                 android:id="@+id/capital"
                 style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="0dp"
@@ -55,8 +73,25 @@
                 android:text="@{countryInfo.capital}"
                 app:layout_constrainedHeight="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/flag_image"
+                app:layout_constraintStart_toEndOf="@id/capital_label"
                 app:layout_constraintTop_toBottomOf="@id/name" />
+
+            <TextView
+                android:id="@+id/region_label"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/region_label"
+                app:layout_constrainedHeight="true"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/region"
+                app:layout_constraintStart_toEndOf="@id/flag_image"
+                app:layout_constraintTop_toBottomOf="@id/capital" />
 
             <TextView
                 android:id="@+id/region"
@@ -71,7 +106,7 @@
                 app:layout_constrainedHeight="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/flag_image"
+                app:layout_constraintStart_toEndOf="@id/region_label"
                 app:layout_constraintTop_toBottomOf="@id/capital" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

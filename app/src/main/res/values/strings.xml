@@ -9,4 +9,6 @@
     <string name="try_again">Try again</string>
     <string name="continue_to_the_app">Continue</string>
     <string name="welcome_text">Welcome to the Country List application. Here you can get information about all countries around the globe.\n\nClick continue to proceed</string>
+    <string name="region_label">Region:</string>
+    <string name="capital_label">Capital:</string>
 </resources>
