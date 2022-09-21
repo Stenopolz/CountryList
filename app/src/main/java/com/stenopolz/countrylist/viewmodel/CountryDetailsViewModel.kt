@@ -1,7 +1,5 @@
 package com.stenopolz.countrylist.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stenopolz.countrylist.extensions.CallResult
@@ -9,6 +7,11 @@ import com.stenopolz.countrylist.model.data.application.CountryFullInfo
 import com.stenopolz.countrylist.model.data.application.DispatchersHolder
 import com.stenopolz.countrylist.model.repository.CountryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -17,18 +20,18 @@ import javax.inject.Inject
 class CountryDetailsViewModel @Inject constructor(
     private val countryRepository: CountryRepository,
     private val dispatchers: DispatchersHolder
-): ViewModel() {
-    private val _countryInfo = MutableLiveData<CountryFullInfo>()
-    val countryInfo: LiveData<CountryFullInfo> = _countryInfo
+) : ViewModel() {
+    private val _countryInfo = MutableStateFlow<CountryFullInfo?>(null)
+    val countryInfo: StateFlow<CountryFullInfo?> = _countryInfo
 
-    private val _contentVisible = MutableLiveData(false)
-    val contentVisible: LiveData<Boolean> = _contentVisible
+    private val _contentVisible = MutableStateFlow(false)
+    val contentVisible: StateFlow<Boolean> = _contentVisible
 
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
 
-    private val _isError = MutableLiveData(false)
-    val isError: LiveData<Boolean> = _isError
+    private val _isError = MutableStateFlow(false)
+    val isError: StateFlow<Boolean> = _isError
 
     private var countryId = ""
 
@@ -54,21 +57,21 @@ class CountryDetailsViewModel @Inject constructor(
     }
 
     private fun handleLoading() {
-        _contentVisible.postValue(false)
-        _isError.postValue(false)
-        _isLoading.postValue(true)
+        _contentVisible.value = false
+        _isError.value = false
+        _isLoading.value = true
     }
 
     private fun handleSuccess(country: CountryFullInfo) {
-        _countryInfo.postValue(country)
-        _contentVisible.postValue(true)
-        _isError.postValue(false)
-        _isLoading.postValue(false)
+        _countryInfo.tryEmit(country)
+        _contentVisible.value = true
+        _isError.value = false
+        _isLoading.value = false
     }
 
     private fun handleError() {
-        _contentVisible.postValue(false)
-        _isError.postValue(true)
-        _isLoading.postValue(false)
+        _contentVisible.value = false
+        _isError.value = true
+        _isLoading.value = false
     }
 }

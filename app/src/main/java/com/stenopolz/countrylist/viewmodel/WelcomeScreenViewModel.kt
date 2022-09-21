@@ -1,7 +1,6 @@
 package com.stenopolz.countrylist.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.stenopolz.countrylist.model.data.application.CountryShortInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -11,7 +10,10 @@ import javax.inject.Inject
 @HiltViewModel
 class WelcomeScreenViewModel @Inject constructor() : ViewModel() {
 
-    private val _goToNextScreen = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val _goToNextScreen = MutableSharedFlow<Unit>(
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
     val goToNextScreen: SharedFlow<Unit> = _goToNextScreen
 
     fun onGoToNext() {
