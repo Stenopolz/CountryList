@@ -1,17 +1,15 @@
 package com.stenopolz.countrylist.model.repository
 
-import android.content.Context
 import com.stenopolz.countrylist.extensions.CallResult
 import com.stenopolz.countrylist.extensions.apiCall
 import com.stenopolz.countrylist.model.data.application.CountryFullInfo
 import com.stenopolz.countrylist.model.data.application.CountryShortInfo
-import com.stenopolz.countrylist.model.service.CountryService
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.stenopolz.countrylist.model.service.CountryApi
 import javax.inject.Inject
 import kotlin.math.roundToLong
 
 class CountryRepository @Inject constructor(
-    private val service: CountryService,
+    private val service: CountryApi,
 ) {
     /**
      * @return list of all available countries
