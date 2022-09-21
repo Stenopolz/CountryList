@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.stenopolz.countrylist.databinding.ItemCountryInfoBinding
-import com.stenopolz.countrylist.model.data.application.CountryShortInfo
+import com.stenopolz.countrylist.viewmodel.CountryShortUiModel
 
 class CountriesAdapter(
     private val onClickListener: (id: String) -> Unit
 ) : RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
 
-    private var countryList: List<CountryShortInfo> = emptyList()
+    private var countryList: List<CountryShortUiModel> = emptyList()
 
-    fun setCountries(countries: List<CountryShortInfo>) {
+    fun setCountries(countries: List<CountryShortUiModel>) {
         countryList = countries
         notifyDataSetChanged()
     }
@@ -39,7 +39,7 @@ class CountriesAdapter(
         private val binding: ItemCountryInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(countryInfo: CountryShortInfo) {
+        fun bind(countryInfo: CountryShortUiModel) {
             binding.countryInfo = countryInfo
         }
     }

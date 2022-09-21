@@ -5,11 +5,11 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.stenopolz.countrylist.model.data.application.CountryShortInfo
 import com.stenopolz.countrylist.view.CountriesAdapter
+import com.stenopolz.countrylist.viewmodel.CountryShortUiModel
 
 @BindingAdapter("setCountries")
-fun setCountries(recyclerView: RecyclerView, list: List<CountryShortInfo>?) {
+fun setCountries(recyclerView: RecyclerView, list: List<CountryShortUiModel>?) {
     val adapter = recyclerView.adapter as CountriesAdapter
     adapter.setCountries(list ?: emptyList())
 }

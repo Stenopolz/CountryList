@@ -21,8 +21,8 @@ class CountryListViewModel @Inject constructor(
     private val countryRepository: CountryRepository,
     private val dispatchers: DispatchersHolder
 ) : ViewModel() {
-    private val _countryList = MutableStateFlow<List<CountryShortInfo>>(emptyList())
-    val countryList: StateFlow<List<CountryShortInfo>> = _countryList
+    private val _countryList = MutableStateFlow<List<CountryShortUiModel>>(emptyList())
+    val countryList: StateFlow<List<CountryShortUiModel>> = _countryList
 
     private val _contentVisible = MutableStateFlow(false)
     val contentVisible: StateFlow<Boolean> = _contentVisible
@@ -32,6 +32,8 @@ class CountryListViewModel @Inject constructor(
 
     private val _isError = MutableStateFlow(false)
     val isError: StateFlow<Boolean> = _isError
+
+    private var showFlags = true
 
     private val _countryIdSelected = MutableSharedFlow<String>(
         extraBufferCapacity = 1,
@@ -49,6 +51,17 @@ class CountryListViewModel @Inject constructor(
 
     fun onTryAgain() {
         fetchCountries()
+    }
+
+    fun getShouldShowFlags(): Boolean {
+        return showFlags
+    }
+
+    fun setShouldShowFlags(shouldShow: Boolean) {
+        if (showFlags != shouldShow) {
+            showFlags = shouldShow
+            _countryList.value = _countryList.value.map { it.copy(showFlag = showFlags) }
+        }
     }
 
     private fun fetchCountries() {
@@ -74,7 +87,16 @@ class CountryListViewModel @Inject constructor(
     }
 
     private fun handleSuccess(countryList: List<CountryShortInfo>) {
-        _countryList.value = countryList
+        _countryList.value = countryList.map {
+            CountryShortUiModel(
+                id = it.id,
+                name = it.name,
+                capital = it.capital,
+                region = it.region,
+                flagUrl = it.flagUrl,
+                showFlag = showFlags
+            )
+        }
         _contentVisible.value = true
         _isError.value = false
         _isLoading.value = false

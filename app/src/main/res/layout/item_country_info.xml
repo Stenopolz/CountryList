@@ -6,7 +6,7 @@
 
         <variable
             name="countryInfo"
-            type="com.stenopolz.countrylist.model.data.application.CountryShortInfo" />
+            type="com.stenopolz.countrylist.viewmodel.CountryShortUiModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -29,7 +29,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:setImage="@{countryInfo.flagUrl}" />
+                app:setImage="@{countryInfo.flagUrl}"
+                app:visibleIf="@{countryInfo.showFlag}" />
 
             <TextView
                 android:id="@+id/name"
@@ -43,7 +44,8 @@
                 app:layout_constrainedHeight="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/flag_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginStart="16dp" />
 
             <TextView
                 android:id="@+id/capital_label"
@@ -59,7 +61,8 @@
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toStartOf="@id/capital"
                 app:layout_constraintStart_toEndOf="@id/flag_image"
-                app:layout_constraintTop_toBottomOf="@id/name" />
+                app:layout_constraintTop_toBottomOf="@id/name"
+                app:layout_goneMarginStart="16dp" />
 
             <TextView
                 android:id="@+id/capital"
@@ -91,7 +94,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/region"
                 app:layout_constraintStart_toEndOf="@id/flag_image"
-                app:layout_constraintTop_toBottomOf="@id/capital" />
+                app:layout_constraintTop_toBottomOf="@id/capital"
+                app:layout_goneMarginStart="16dp" />
 
             <TextView
                 android:id="@+id/region"

@@ -29,6 +29,7 @@ class CountryListFragment : Fragment() {
         }
 
     private val countryListViewModel: CountryListViewModel by viewModels()
+    private lateinit var countryListAdapter: CountriesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,11 +43,13 @@ class CountryListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        countryListAdapter = CountriesAdapter {
+            countryListViewModel.onCountryIdClicked(it)
+        }
+
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            adapter = CountriesAdapter {
-                countryListViewModel.onCountryIdClicked(it)
-            }
+            adapter = countryListAdapter
             viewModel = countryListViewModel
             list.addItemDecoration(
                 DividerItemDecoration(
