@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CountryList</string>
+    <string name="app_name">Country List</string>
     <string name="title_activity_main">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="welcome_fragment_label">Welcome</string>
